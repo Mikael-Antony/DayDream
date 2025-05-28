@@ -1,80 +1,134 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DayDream</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <section id="cabecalho-header">
-      <h1>DayDream</h1>
-      <input type="text" id="barra-pesquisa" placeholder="Buscar produto...">
-      <nav>
-        <a href="#contato">Contato</a>
-        <span id="carrinho-contador">Carrinho (0)</span>
-      </nav>
-    </section>
-    
-    <div id="categorias-header">
-      <button class="btn-categoria ativa" data-categoria="">Todas</button>
-      <button class="btn-categoria" data-categoria="Roupas">Roupas</button>
-      <button class="btn-categoria" data-categoria="Acessórios">Acessórios</button>
-      <button class="btn-categoria" data-categoria="Calçados">Calçados</button>
-      <button class="btn-categoria" data-categoria="Eletrônicos">Eletrônicos</button>
-      <button class="btn-categoria" data-categoria="Outros">Outros</button>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DayDream</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/media-desktop.css" media="screen and (min-width: 1200px)">
+    <link rel="stylesheet" href="css/media-tablet.css" media="screen and (max-width: 900px)">
+    <link rel="stylesheet" href="css/media-mobile.css" media="screen and (max-width: 600px)">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <section id="cabecalho-header">
+        <h1>DayDream</h1>
+        <input
+          type="text"
+          id="barra-pesquisa"
+          placeholder="Buscar produto..."
+        />
+        <button id="btn-toggle-categorias" type="button" style="margin: 8px 0 0 0;">
+          Categorias
+        </button>
+        <nav>
+          <a href="#contato" class="header-link contato-link">Contato</a>
+          <span
+            id="carrinho-contador"
+            class="header-link carrinho-link"
+            title="Meu Carrinho"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              style="vertical-align: middle; margin-right: 4px"
+            >
+              <path
+                d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14l.84-2h7.45c.75 0 1.41-.41 1.75-1.03l3.24-5.88A1 1 0 0 0 19.45 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.09z"
+                fill="#cffccc"
+              />
+            </svg>
+            <span class="carrinho-text"
+              >(<span id="carrinho-qtd">0</span>)</span
+            >
+          </span>
+        </nav>
+      </section>
 
-  <main>
-    <section id="produtos">
-      <h2>Produtos em Destaque</h2>
-      <!-- Filtros de categorias e valor -->
-      <div class="filtros-produtos">
-        <div>
-          <label for="filtro-categoria">Categoria</label>
-          <select id="filtro-categoria">
-            <option value="">Todas as categorias</option>
-            <option value="Roupas">Roupas</option>
-            <option value="Acessórios">Acessórios</option>
-            <option value="Calçados">Calçados</option>
-            <option value="Eletrônicos">Eletrônicos</option>
-            <option value="Outros">Outros</option>
-          </select>
-        </div>
-        <div>
-          <label for="filtro-preco-min">Preço mín.</label>
-          <input type="number" id="filtro-preco-min" placeholder="0" min="0">
-        </div>
-        <div>
-          <label for="filtro-preco-max">Preço máx.</label>
-          <input type="number" id="filtro-preco-max" placeholder="∞" min="0">
-        </div>
-        <div>
-          <label for="filtro-ordem">Ordenar por</label>
-          <select id="filtro-ordem">
-            <option value="padrao">Padrão</option>
-            <option value="preco-asc">Do menor para maior</option>
-            <option value="preco-desc">Do maior para menor</option>
-          </select>
-        </div>
-        <button id="limpar-filtros" type="button">Limpar filtros</button>
+      <div id="categorias-header">
+        <button class="btn-categoria ativa" data-categoria="">Todas</button>
+        <button class="btn-categoria" data-categoria="Roupas">Roupas</button>
+        <button class="btn-categoria" data-categoria="Acessórios">
+          Acessórios
+        </button>
+        <button class="btn-categoria" data-categoria="Calçados">
+          Calçados
+        </button>
+        <button class="btn-categoria" data-categoria="Eletrônicos">
+          Eletrônicos
+        </button>
+        <button class="btn-categoria" data-categoria="Outros">Outros</button>
       </div>
-      <div class="grid-produtos" id="lista-produtos"></div>
-    </section>
+    </header>
 
-    <section id="contato">
-      <h2>Contato</h2>
-      <p>Fale conosco pelo WhatsApp: <a href="https://wa.me/SEUNUMERO" target="_blank">Clique aqui</a></p>
-    </section>
-  </main>
+    <main>
+      <section id="produtos">
+        <h2>Produtos em Destaque</h2>
+        <!-- Filtros de categorias e valor -->
+        <button id="btn-toggle-filtros" type="button">Filtros</button>
+        <div class="filtros-produtos">
+          <div>
+            <label for="filtro-categoria">Categoria</label>
+            <select id="filtro-categoria">
+              <option value="">Todas as categorias</option>
+              <option value="Roupas">Roupas</option>
+              <option value="Acessórios">Acessórios</option>
+              <option value="Calçados">Calçados</option>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+          <div>
+            <label for="filtro-preco-min">Preço mín.</label>
+            <input
+              type="number"
+              id="filtro-preco-min"
+              placeholder="0"
+              min="0"
+            />
+          </div>
+          <div>
+            <label for="filtro-preco-max">Preço máx.</label>
+            <input
+              type="number"
+              id="filtro-preco-max"
+              placeholder="∞"
+              min="0"
+            />
+          </div>
+          <div>
+            <label for="filtro-ordem">Ordenar por</label>
+            <select id="filtro-ordem">
+              <option value="padrao">Padrão</option>
+              <option value="preco-asc">Do menor para maior</option>
+              <option value="preco-desc">Do maior para menor</option>
+            </select>
+          </div>
+          <button id="limpar-filtros" type="button">Limpar filtros</button>
+        </div>
+        <div class="grid-produtos" id="lista-produtos"></div>
+      </section>
 
-  <footer>
-    <p>&copy; 2025 Minha Loja. Todos os direitos reservados.</p>
-  </footer>
+      <section id="contato">
+        <h2>Contato</h2>
+        <p>
+          Fale conosco pelo WhatsApp:
+          <a href="https://wa.me/SEUNUMERO" target="_blank">Clique aqui</a>
+        </p>
+      </section>
+    </main>
 
-  <script src="produtos.js"></script>
-  <script src="script.js"></script>
-</body>
+    <footer>
+      <p>&copy; 2025 Minha Loja. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="produtos.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>

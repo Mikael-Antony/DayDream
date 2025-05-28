@@ -1,0 +1,50 @@
+@media (max-width: 600px) {
+  #cabecalho-header {
+    height: 160px;
+    padding: 10px 16px;
+    flex-direction: column;
+  }
+  header > h1 {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+  header > nav {
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  header input#barra-pesquisa {
+    margin-bottom: 8px;
+    max-width: 98vw;
+  }
+  #categorias-header {
+    background-color: #72dcef9d;
+    gap: 6px;
+    padding: 6px;
+    min-height: 38px;
+    border-radius: 0 0 10px 10px;
+  }
+  main {
+    margin-top: calc(150px + 38px);
+  }
+  .filtros-produtos {
+    grid-template-columns: auto auto;
+    padding: 8px 2px 4px 2px;
+    gap: 6px;
+  }
+  .btn-categoria,
+  .filtros-produtos button,
+  .filtros-produtos select,
+  .filtros-produtos input[type="number"],
+  .filtros-produtos input[type="text"] {
+    max-width: 100%;
+    min-width: 60px;
+    font-size: 0.96rem;
+    padding: 7px 8px;
+  }
+  .grid-produtos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}

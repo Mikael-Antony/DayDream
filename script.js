@@ -15,14 +15,13 @@ function renderizarProdutos(
   let min = precoMin !== "" ? parseFloat(precoMin) : 0;
   let max = precoMax !== "" ? parseFloat(precoMax) : Infinity;
 
-  let produtosFiltrados = produtos
-    .filter(
-      (produto) =>
-        produto.nome.toLowerCase().includes(filtro.toLowerCase()) &&
-        (categoria === "" || produto.categoria === categoria) &&
-        produto.preco >= min &&
-        produto.preco <= max
-    );
+  let produtosFiltrados = produtos.filter(
+    (produto) =>
+      produto.nome.toLowerCase().includes(filtro.toLowerCase()) &&
+      (categoria === "" || produto.categoria === categoria) &&
+      produto.preco >= min &&
+      produto.preco <= max
+  );
 
   // Ordenação
   if (ordem === "preco-asc") {
@@ -72,10 +71,10 @@ function adicionarAoCarrinho(id) {
 
 // Atualiza o contador do carrinho e a aba lateral
 function atualizarCarrinho() {
-  const carrinhoContador = document.getElementById("carrinho-contador");
+  const carrinhoQtd = document.getElementById("carrinho-qtd");
   const totalItens = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
-  if (carrinhoContador) {
-    carrinhoContador.textContent = `Carrinho (${totalItens})`;
+  if (carrinhoQtd) {
+    carrinhoQtd.textContent = totalItens;
   }
   if (document.getElementById("aba-carrinho")) {
     atualizarCarrinhoAba();
@@ -374,4 +373,77 @@ document.addEventListener("DOMContentLoaded", function () {
       categoriasHeader.classList.remove("oculto");
     }
   });
+});
+
+let ultimoScroll = 0;
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", function () {
+  if (window.innerWidth <= 991) {
+    // só em telas menores
+    const atualScroll = window.scrollY;
+    if (atualScroll > ultimoScroll && atualScroll > 100) {
+      header.classList.add("header-oculto");
+    } else {
+      header.classList.remove("header-oculto");
+    }
+    ultimoScroll = atualScroll;
+  } else {
+    header.classList.remove("header-oculto");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const btnToggleFiltros = document.getElementById("btn-toggle-filtros");
+  const filtros = document.querySelector(".filtros-produtos");
+
+  if (btnToggleFiltros && filtros) {
+    btnToggleFiltros.addEventListener("click", function () {
+      filtros.classList.toggle("aberta");
+      // Altera o texto do botão conforme o estado
+      if (filtros.classList.contains("aberta")) {
+        btnToggleFiltros.textContent = "Ocultar Filtros";
+      } else {
+        btnToggleFiltros.textContent = "Filtros";
+      }
+    });
+  }
+});
+
+// Atualiza o contador do carrinho no header
+function atualizarContadorCarrinho() {
+  const carrinhoQtd = document.getElementById("carrinho-qtd");
+  const totalItens = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+  if (carrinhoQtd) {
+    carrinhoQtd.textContent = totalItens;
+  }
+}
+
+// Chama a função de atualizar contador sempre que o carrinho é atualizado
+const originalAtualizarCarrinho = atualizarCarrinho;
+atualizarCarrinho = function () {
+  originalAtualizarCarrinho();
+  atualizarContadorCarrinho();
+};
+
+const originalAtualizarCarrinhoAba = atualizarCarrinhoAba;
+atualizarCarrinhoAba = function () {
+  originalAtualizarCarrinhoAba();
+  atualizarContadorCarrinho();
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  const btnToggleCategorias = document.getElementById("btn-toggle-categorias");
+  const categoriasHeader = document.getElementById("categorias-header");
+
+  if (btnToggleCategorias && categoriasHeader) {
+    btnToggleCategorias.addEventListener("click", function () {
+      categoriasHeader.classList.toggle("oculto");
+      if (categoriasHeader.classList.contains("oculto")) {
+        btnToggleCategorias.textContent = "Categorias";
+      } else {
+        btnToggleCategorias.textContent = "Categorias";
+      }
+    });
+  }
 });
