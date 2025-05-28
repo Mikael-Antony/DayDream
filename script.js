@@ -7,35 +7,44 @@ function renderizarProdutos(
   filtro = "",
   categoria = "",
   precoMin = "",
-  precoMax = ""
+  precoMax = "",
+  ordem = "padrao"
 ) {
   const lista = document.getElementById("lista-produtos");
   lista.innerHTML = "";
   let min = precoMin !== "" ? parseFloat(precoMin) : 0;
   let max = precoMax !== "" ? parseFloat(precoMax) : Infinity;
 
-  produtos
+  let produtosFiltrados = produtos
     .filter(
       (produto) =>
         produto.nome.toLowerCase().includes(filtro.toLowerCase()) &&
         (categoria === "" || produto.categoria === categoria) &&
         produto.preco >= min &&
         produto.preco <= max
-    )
-    .forEach((produto) => {
-      const div = document.createElement("div");
-      div.className = "produto";
-      div.innerHTML = `
-        <img src="${produto.imagem}" alt="${produto.nome}">
-        <h3>${produto.nome}</h3>
-        <p>R$ ${produto.preco.toFixed(2)}</p>
-        <span class="categoria-produto">${produto.categoria}</span>
-        <button onclick="adicionarAoCarrinho(${
-          produto.id
-        })">Adicionar ao Carrinho</button>
-      `;
-      lista.appendChild(div);
-    });
+    );
+
+  // Ordenação
+  if (ordem === "preco-asc") {
+    produtosFiltrados.sort((a, b) => a.preco - b.preco);
+  } else if (ordem === "preco-desc") {
+    produtosFiltrados.sort((a, b) => b.preco - a.preco);
+  }
+
+  produtosFiltrados.forEach((produto) => {
+    const div = document.createElement("div");
+    div.className = "produto";
+    div.innerHTML = `
+      <img src="${produto.imagem}" alt="${produto.nome}">
+      <h3>${produto.nome}</h3>
+      <p>R$ ${produto.preco.toFixed(2)}</p>
+      <span class="categoria-produto">${produto.categoria}</span>
+      <button onclick="adicionarAoCarrinho(${
+        produto.id
+      })">Adicionar ao Carrinho</button>
+    `;
+    lista.appendChild(div);
+  });
 
   // Mensagem caso nenhum produto seja encontrado
   if (lista.innerHTML === "") {
@@ -267,56 +276,81 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Evento para filtro de categoria por botões e pesquisa
 document.addEventListener("DOMContentLoaded", function () {
-  const barra = document.getElementById("");
+  const barra = document.getElementById("barra-pesquisa");
   const botoesCategoria = document.querySelectorAll(".btn-categoria");
+  const filtroCategoria = document.getElementById("filtro-categoria");
+  const filtroPrecoMin = document.getElementById("filtro-preco-min");
+  const filtroPrecoMax = document.getElementById("filtro-preco-max");
+  const btnLimpar = document.getElementById("limpar-filtros");
+  const filtroOrdem = document.getElementById("filtro-ordem");
+
   let categoriaSelecionada = "";
+  let ordemSelecionada = "padrao";
 
   function filtrar() {
-    renderizarProdutos(barra.value, categoriaSelecionada);
+    renderizarProdutos(
+      barra ? barra.value : "",
+      categoriaSelecionada || (filtroCategoria ? filtroCategoria.value : ""),
+      filtroPrecoMin ? filtroPrecoMin.value : "",
+      filtroPrecoMax ? filtroPrecoMax.value : "",
+      ordemSelecionada
+    );
   }
 
+  // Busca por texto
   if (barra) barra.addEventListener("input", filtrar);
 
+  // Botões de categoria
   botoesCategoria.forEach((btn) => {
     btn.addEventListener("click", function () {
       botoesCategoria.forEach((b) => b.classList.remove("ativa"));
       this.classList.add("ativa");
       categoriaSelecionada = this.getAttribute("data-categoria");
+      if (filtroCategoria) filtroCategoria.value = categoriaSelecionada;
       filtrar();
     });
   });
 
-  renderizarProdutos();
-});
-
-// Filtros: categoria (select), valor (inputs) e busca (input)
-document.addEventListener("DOMContentLoaded", function () {
-  const barra = document.getElementById("");
-  const filtroCategoria = document.getElementById("filtro-categoria");
-  const filtroPrecoMin = document.getElementById("filtro-preco-min");
-  const filtroPrecoMax = document.getElementById("filtro-preco-max");
-  const btnLimpar = document.getElementById("limpar-filtros");
-
-  function filtrar() {
-    renderizarProdutos(
-      barra.value,
-      filtroCategoria.value,
-      filtroPrecoMin.value,
-      filtroPrecoMax.value
-    );
+  // Select de categoria
+  if (filtroCategoria) {
+    filtroCategoria.addEventListener("change", function () {
+      categoriaSelecionada = this.value;
+      // Destaca o botão correspondente, se existir
+      botoesCategoria.forEach((btn) => {
+        if (btn.getAttribute("data-categoria") === categoriaSelecionada) {
+          btn.classList.add("ativa");
+        } else {
+          btn.classList.remove("ativa");
+        }
+      });
+      filtrar();
+    });
   }
 
-  if (barra) barra.addEventListener("input", filtrar);
-  if (filtroCategoria) filtroCategoria.addEventListener("change", filtrar);
+  // Filtros de preço
   if (filtroPrecoMin) filtroPrecoMin.addEventListener("input", filtrar);
   if (filtroPrecoMax) filtroPrecoMax.addEventListener("input", filtrar);
 
+  // Filtro de ordem
+  if (filtroOrdem) {
+    filtroOrdem.addEventListener("change", function () {
+      ordemSelecionada = this.value;
+      filtrar();
+    });
+  }
+
+  // Limpar filtros
   if (btnLimpar) {
     btnLimpar.addEventListener("click", function () {
-      filtroCategoria.value = "";
-      filtroPrecoMin.value = "";
-      filtroPrecoMax.value = "";
+      if (filtroCategoria) filtroCategoria.value = "";
+      if (filtroPrecoMin) filtroPrecoMin.value = "";
+      if (filtroPrecoMax) filtroPrecoMax.value = "";
       if (barra) barra.value = "";
+      if (filtroOrdem) filtroOrdem.value = "padrao";
+      categoriaSelecionada = "";
+      ordemSelecionada = "padrao";
+      botoesCategoria.forEach((b) => b.classList.remove("ativa"));
+      if (botoesCategoria.length) botoesCategoria[0].classList.add("ativa"); // Marca "Todas"
       filtrar();
     });
   }

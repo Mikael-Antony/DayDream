@@ -1,3 +1,4 @@
+/* Reset e estrutura básica */
 @charset "UTF-8";
 
 * {
@@ -5,6 +6,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 body {
   background: #fff;
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -14,21 +16,18 @@ body {
   flex-direction: column;
 }
 
+/* HEADER */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #3ec6e0;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   z-index: 100;
-  padding: 0 40px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-height: 110px;
 }
 
 header > h1 {
@@ -53,24 +52,38 @@ header input#barra-pesquisa {
   font-size: 1rem;
 }
 
-/* Área de categorias sempre logo abaixo do header */
+#cabecalho-header {
+  background: #3ec6e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #fff;
+
+  width: 100vw;
+  height: 80px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* CATEGORIAS */
 #categorias-header {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+
   gap: 12px;
-  padding: 8px 0 0 0;
-  background: #e0f7fa;
+  padding: 5px;
   transition: opacity 0.3s;
   opacity: 1;
   pointer-events: auto;
   box-sizing: border-box;
-  min-height: 48px; /* altura mínima para garantir espaço */
+  min-height: 40px;
   border-radius: 0 0 12px 12px;
-  box-shadow: 0 2px 8px rgba(60,198,224,0.07);
   position: static;
   z-index: 99;
-  align-items: center;
   overflow-x: auto;
 }
 
@@ -79,10 +92,10 @@ header input#barra-pesquisa {
   pointer-events: none;
 }
 
-/* Garante que o conteúdo principal fique abaixo do header e das categorias */
+/* MAIN */
 main {
   flex: 1;
-  margin: calc(110px + 48px) auto 0 auto; /* 110px do header + 48px das categorias */
+  margin: calc(80px + 40px) auto 0 auto; /* header + categorias */
   background: #fff;
   padding: 30px 5vw;
   max-width: 1400px;
@@ -92,9 +105,10 @@ main {
   box-shadow: 0 4px 24px rgba(0,0,0,0.07);
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Espaço entre as sections internas */
+  gap: 32px;
 }
 
+/* COMPONENTES E OUTROS ELEMENTOS */
 h2 {
   margin-bottom: 18px;
   color: #3ec6e0;
@@ -216,6 +230,7 @@ footer {
   border-radius: 8px;
   font-size: 0.95rem;
 }
+
 #filtro-categoria {
   padding: 6px 12px;
   border-radius: 8px;
@@ -243,6 +258,7 @@ footer {
   color: #fff;
 }
 
+/* FILTROS */
 .filtros-produtos {
   display: flex;
   align-items: flex-end;
@@ -298,21 +314,22 @@ footer {
   background: #1fa2b8;
 }
 
+/* RESPONSIVIDADE */
+
+/* Desktop grande */
 @media (min-width: 1200px) {
   main {
     max-width: 1400px;
-    padding: 40px 10vw;
   }
   .grid-produtos {
-    grid-template-columns: repeat(4, 1fr); /* 4 colunas fixas para desktop */
+    grid-template-columns: repeat(4, 1fr);
     gap: 36px;
   }
 }
 
-/* Responsividade para tablets */
+/* Tablets */
 @media (max-width: 991px) {
   header {
-    padding: 0 10px;
     min-height: 120px;
   }
   #categorias-header {
@@ -323,54 +340,17 @@ footer {
     padding: 24px 2vw;
     gap: 20px;
   }
-  header {
-    padding: 0 16px;
-  }
   .grid-produtos {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas para tablet */
+    grid-template-columns: repeat(2, 1fr);
     gap: 18px;
   }
 }
-
-/* Responsividade para celulares */
-@media (max-width: 600px) {
-  header {
-    min-height: 90px;
-    padding: 8px 2vw;
-  }
-  header > h1 {
-    font-size: 1.3rem;
-    margin-top: 10px;
-    margin-bottom: 4px;
-  }
-  header > nav {
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 4px;
-  }
-  header input#barra-pesquisa {
-    margin-bottom: 8px;
-    max-width: 98vw;
-  }
-  #categorias-header {
-    gap: 6px;
-    padding: 6px 0 0 0;
-    min-height: 38px;
-    border-radius: 0 0 10px 10px;
-  }
-  main {
-    margin-top: calc(90px + 38px); /* header + categorias */
-  }
-}
-
-/* Melhor responsividade para header */
+/* Tablets pequenos */
 @media (max-width: 800px) {
   header {
     flex-direction: column;
     align-items: stretch;
     min-height: 120px;
-    padding: 10px 4vw;
-    gap: 8px;
   }
   header > h1 {
     font-size: 1.1rem;
@@ -397,11 +377,50 @@ footer {
     border-radius: 0 0 12px 12px;
   }
   main {
-    margin-top: calc(120px + 44px); /* header + categorias */
+    margin-top: calc(120px + 44px);
   }
 }
 
-/* Estilo para scrollbar visível em navegadores Webkit */
+/* Celulares */
+@media (max-width: 600px) {
+  header {
+    min-height: 90px;
+
+  }
+  #cabecalho-header {
+    height: 120px;
+    padding: 10px 16px;
+
+    flex-direction: column;
+  }
+  header > h1 {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+  header > nav {
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  header input#barra-pesquisa {
+    margin-bottom: 8px;
+    max-width: 98vw;
+  }
+  #categorias-header {
+    background-color: #72dcef9d;
+    gap: 6px;
+    padding: 6px;
+    min-height: 38px;
+    border-radius: 0 0 10px 10px;
+  }
+  main {
+    margin-top: calc(120px + 38px);
+  }
+}
+
+
+/* Scrollbar para categorias */
 #categorias-header::-webkit-scrollbar {
   height: 6px;
 }

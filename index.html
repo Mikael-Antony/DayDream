@@ -8,12 +8,15 @@
 </head>
 <body>
   <header>
-    <h1>DayDream</h1>
-    <input type="text" id="barra-pesquisa" placeholder="Buscar produto...">
-    <nav>
-      <a href="#contato">Contato</a>
-      <span id="carrinho-contador">Carrinho (0)</span>
-    </nav>
+    <section id="cabecalho-header">
+      <h1>DayDream</h1>
+      <input type="text" id="barra-pesquisa" placeholder="Buscar produto...">
+      <nav>
+        <a href="#contato">Contato</a>
+        <span id="carrinho-contador">Carrinho (0)</span>
+      </nav>
+    </section>
+    
     <div id="categorias-header">
       <button class="btn-categoria ativa" data-categoria="">Todas</button>
       <button class="btn-categoria" data-categoria="Roupas">Roupas</button>
@@ -47,6 +50,14 @@
         <div>
           <label for="filtro-preco-max">Preço máx.</label>
           <input type="number" id="filtro-preco-max" placeholder="∞" min="0">
+        </div>
+        <div>
+          <label for="filtro-ordem">Ordenar por</label>
+          <select id="filtro-ordem">
+            <option value="padrao">Padrão</option>
+            <option value="preco-asc">Do menor para maior</option>
+            <option value="preco-desc">Do maior para menor</option>
+          </select>
         </div>
         <button id="limpar-filtros" type="button">Limpar filtros</button>
       </div>
