@@ -43,6 +43,14 @@
     font-size: 0.96rem;
     padding: 7px 8px;
   }
+
+  #btn-toggle-categorias {
+    transform: none;
+    position: relative;
+    
+    margin: 0;
+  }
+
   .grid-produtos {
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;

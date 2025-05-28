@@ -98,7 +98,7 @@ header input#barra-pesquisa {
 
 #btn-toggle-categorias {
   position: fixed;
-  transform: translate(40vw, 23px);
+  transform: translate(-40vw, 23px);
   padding: 8px 16px;
   background-color: #ffffff00;
   color: #fff;
