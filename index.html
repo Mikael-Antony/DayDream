@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minha Loja Virtual</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Minha Loja</h1>
+    <input type="text" id="barra-pesquisa" placeholder="Buscar produto...">
+    <nav>
+      <a href="#contato">Contato</a>
+      <span id="carrinho-contador">Carrinho (0)</span>
+    </nav>
+    <div id="categorias-header">
+      <button class="btn-categoria ativa" data-categoria="">Todas</button>
+      <button class="btn-categoria" data-categoria="Roupas">Roupas</button>
+      <button class="btn-categoria" data-categoria="Acessórios">Acessórios</button>
+      <button class="btn-categoria" data-categoria="Calçados">Calçados</button>
+      <button class="btn-categoria" data-categoria="Eletrônicos">Eletrônicos</button>
+      <button class="btn-categoria" data-categoria="Outros">Outros</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="produtos">
+      <h2>Produtos em Destaque</h2>
+      <!-- Filtros de categorias e valor -->
+      <div class="filtros-produtos">
+        <div>
+          <label for="filtro-categoria">Categoria</label>
+          <select id="filtro-categoria">
+            <option value="">Todas as categorias</option>
+            <option value="Roupas">Roupas</option>
+            <option value="Acessórios">Acessórios</option>
+            <option value="Calçados">Calçados</option>
+            <option value="Eletrônicos">Eletrônicos</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+        <div>
+          <label for="filtro-preco-min">Preço mín.</label>
+          <input type="number" id="filtro-preco-min" placeholder="0" min="0">
+        </div>
+        <div>
+          <label for="filtro-preco-max">Preço máx.</label>
+          <input type="number" id="filtro-preco-max" placeholder="∞" min="0">
+        </div>
+        <button id="limpar-filtros" type="button">Limpar filtros</button>
+      </div>
+      <div class="grid-produtos" id="lista-produtos"></div>
+    </section>
+
+    <section id="contato">
+      <h2>Contato</h2>
+      <p>Fale conosco pelo WhatsApp: <a href="https://wa.me/SEUNUMERO" target="_blank">Clique aqui</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Minha Loja. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="produtos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
