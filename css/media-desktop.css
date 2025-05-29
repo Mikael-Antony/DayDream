@@ -1,7 +1,7 @@
 @media (min-width: 1200px) {
   main {
     max-width: 1400px;
-    padding: 40px 10vw;
+    padding: 20px 10vw;
   }
   .grid-produtos {
     grid-template-columns: repeat(4, 1fr);
