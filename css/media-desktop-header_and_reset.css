@@ -1,0 +1,226 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+body {
+  background-image: linear-gradient(to bottom, var(--cor-bg-header), #0c0348);
+}
+
+/*root*/
+
+:root {
+  --cor-bg-header: #111;
+  --cor2-bg-header_25: #dddddd40;
+  --cor2-bg-header_50: #dddddd80;
+  --cor2-bg-header_75: #ddddddbf;
+  --cor2-bg-header_100: #ddd;
+
+  --cor-txt-header: #ddd;
+  --cor-txt-header_75: #bbbbbbbf;
+  --cor-txt-header_50: #dddddd80;
+  --cor-txt-header_25: #bbbbbb40;
+  --cor-txt-header_25nt: #43414eee;
+  --cor-txt-header_link: #41a9ff;
+}
+
+/*ut*/
+.line {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding-bottom: 2px;
+
+  background-color: var(--cor2-bg-header_25);
+  margin: 10px 0;
+}
+
+/*cabeçalho*/
+
+header {
+  background-color: var(--cor-bg-header);
+  color: var(--cor-txt-header);
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  top: 0;
+  
+  transition: top 0.3s;
+  z-index: 100;
+}
+.header-escondido {
+  top: -60px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+    /*barra de pesquisa*/
+#barra_pesquisa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--cor-txt-header);
+  padding: 1px;
+  border-radius: 5px;
+}
+#barra_pesquisa > input {
+  padding: 2.5px 5px;
+  font-size: 1em;
+  width: 25vw;
+  
+  background-color: transparent;
+  border: none;
+}
+#barra_pesquisa > input:focus-visible {
+  outline: none;
+}
+#barra_pesquisa > svg {}
+
+    /*carrinho e login/cadastro*/
+
+#carrinho, #login_cadastro {
+  display: flex;
+  align-items: center;
+}
+#carrinho:hover, #login_cadastro:hover {
+  cursor: pointer;
+}
+#carrinho-info, #login_cadastro-info {
+  padding-left: 2.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  font-size: .8em;
+  font-weight: bolder;
+}
+#login_cadastro-txt1 {
+  font-weight: normal;
+}
+#login_cadastro:hover {
+  #login_cadastro-txt2 {
+    text-decoration: underline;
+  }
+}
+.login_cadastro-area { 
+  display: none;
+  flex-direction: column;
+  
+  position: absolute;
+  right: calc(0% + 10px);
+  top: 60px;
+
+  width: 250px;
+  height: 75vh;
+  border-radius: 25px;
+  background-color: var(--cor-txt-header_25nt);
+  overflow: hidden;
+  cursor: default;
+}
+.login_cadastro-area:hover {
+  display: flex;
+}
+#login_cadastro-area-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  height: 12.5%;
+  padding: 10px;
+  background-color: var(--cor2-bg-header_25);
+
+}
+#login_cadastro-area-header-img {
+  height: 100%;
+}
+#login_cadastro-area-header-txt {
+  font-size: .9em;
+}
+#login_cadastro-area-header-txt_sair {
+  color: var(--cor-txt-header_link);
+}
+#login_cadastro-area-header-txt_sair:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#login_cadastro-area-options {
+  display: flex;
+  flex-direction: column;
+  gap: 7.5px;
+
+  height: 87.5%;
+  padding: 10px 5%;
+
+  overflow: auto;
+}
+#login_cadastro-area-options::-webkit-scrollbar {
+  width: 7.5px;
+  background-color: transparent;
+}
+#login_cadastro-area-options::-webkit-scrollbar-thumb {
+  background-color: var(--cor2-bg-header_25);
+  border-radius: 5px;
+}
+#login_cadastro-area-options::-webkit-scrollbar-thumb:hover {
+  background-color: var(--cor2-bg-header_50);
+}
+.login_cadastro_area-option_tp1, .login_cadastro_area-option_tp2 {
+  transition: all 0.2s ease-in-out;
+  max-height: fit-content;
+  font-size: .9em;
+}
+.login_cadastro_area-option_tp1 {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 50px;
+
+  border-radius: 5px;
+  padding: 5px 10px;
+
+  background-color: var(--cor2-bg-header_25);
+  color: var(--cor-txt-header);
+}
+.login_cadastro_area-option_tp1:hover {
+  background-color: var(--cor2-bg-header_50);
+  cursor: pointer;
+}
+.login_cadastro_area-option_tp2 {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 50px;
+
+  border-radius: 5px;
+  padding: 5px 10px;
+
+  color: var(--cor-txt-header_75);
+}
+.login_cadastro_area-option_tp2:hover {
+  color: var(--cor-txt-header);
+  cursor: pointer;
+}
+#carrinho-qtd {
+  position: absolute;
+  transform: translateY(-20px);
+  
+  background-color: var(--cor-txt-header);
+  color: var(--cor-bg-header);
+  padding: 1px 5px;
+  border-radius: 50%;
+}

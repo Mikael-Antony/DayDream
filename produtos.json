@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "nome": "Camiseta Estilosa",
+    "preco": 59.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 2,
+    "nome": "Tênis Moderno",
+    "preco": 199.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 3,
+    "nome": "Relógio Elegante",
+    "preco": 299.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 4,
+    "nome": "Mochila Prática",
+    "preco": 89.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 5,
+    "nome": "Jaqueta Quente",
+    "preco": 159.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 6,
+    "nome": "Calça Jeans",
+    "preco": 89.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 7,
+    "nome": "Boné Casual",
+    "preco": 39.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 8,
+    "nome": "Óculos de Sol",
+    "preco": 149.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 9,
+    "nome": "Camisa Social",
+    "preco": 79.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 10,
+    "nome": "Sapatênis Confortável de Couro",
+    "preco": 129.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 11,
+    "nome": "Cinto de Couro",
+    "preco": 49.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 12,
+    "nome": "Blusa de Frio",
+    "preco": 99.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 13,
+    "nome": "Tênis Esportivo",
+    "preco": 179.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 14,
+    "nome": "Pulseira de Couro",
+    "preco": 59.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 15,
+    "nome": "Saia Elegante",
+    "preco": 89.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 16,
+    "nome": "Bota de Couro",
+    "preco": 249.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 17,
+    "nome": "Cachecol Aconchegante",
+    "preco": 39.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 18,
+    "nome": "Vestido Floral",
+    "preco": 129.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 19,
+    "nome": "Sandália Confortável",
+    "preco": 89.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 20,
+    "nome": "Carteira de Couro",
+    "preco": 69.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 21,
+    "nome": "Blazer Casual",
+    "preco": 199.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 22,
+    "nome": "Tênis Casual",
+    "preco": 159.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 23,
+    "nome": "Relógio Esportivo",
+    "preco": 349.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 24,
+    "nome": "Camiseta Básica",
+    "preco": 39.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 25,
+    "nome": "Botas de Inverno",
+    "preco": 199.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 26,
+    "nome": "Colar de Prata",
+    "preco": 89.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 27,
+    "nome": "Calça de Moletom",
+    "preco": 69.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 28,
+    "nome": "Tênis de Corrida",
+    "preco": 219.90,
+    "categoria": "Calçados",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 29,
+    "nome": "Cinto Casual",
+    "preco": 39.90,
+    "categoria": "Acessórios",
+    "imagem": "https://placehold.co/400"
+  },
+  {
+    "id": 30,
+    "nome": "Vestido de Festa",
+    "preco": 249.90,
+    "categoria": "Roupas",
+    "imagem": "https://placehold.co/400"
+  }
+]
