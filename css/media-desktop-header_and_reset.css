@@ -23,6 +23,11 @@ body {
   --cor-txt-header_25: #bbbbbb40;
   --cor-txt-header_25nt: #43414eee;
   --cor-txt-header_link: #41a9ff;
+
+  --cor-txt-preco: #22ffaa;
+
+  --shadow-produto: rgba(0, 0, 0, 0.25);
+  --light-produto: rgba(255, 255, 255, 0.25);
 }
 
 /*ut*/
@@ -215,7 +220,7 @@ nav {
   color: var(--cor-txt-header);
   cursor: pointer;
 }
-#carrinho-qtd {
+.carrinho-qtd-header {
   position: absolute;
   transform: translateY(-20px);
   
@@ -223,4 +228,39 @@ nav {
   color: var(--cor-bg-header);
   padding: 1px 5px;
   border-radius: 50%;
+}
+.carrinho-area {
+  display: none;
+  flex-direction: column;
+
+  position: absolute;
+  right: calc(0% + 10px);
+  top: 60px;
+  padding: 20px;
+
+  width: 300px;
+  height: 150px;
+  border-radius: 25px;
+  background-color: var(--cor-txt-header_25nt);
+  overflow: hidden;
+}
+.carrinho-area-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+}
+.carrinho_area-option {
+  background-color: var(--cor2-bg-header_25);
+  color: var(--cor-txt-header);
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+.carrinho_area-option:hover {
+  background-color: var(--cor2-bg-header_50);
+  cursor: pointer;
+
 }
