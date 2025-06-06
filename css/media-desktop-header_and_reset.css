@@ -12,6 +12,10 @@ body {
 
 :root {
   --cor-bg-header: #111;
+  --cor-bg-header_75: #111111bf;
+  --cor-bg-header_50: #11111180;
+  --cor-bg-header_25: #11111140;
+
   --cor2-bg-header_25: #dddddd40;
   --cor2-bg-header_50: #dddddd80;
   --cor2-bg-header_75: #ddddddbf;
@@ -220,21 +224,51 @@ nav {
   color: var(--cor-txt-header);
   cursor: pointer;
 }
+#carrinho {
+  background-color: var(--cor-bg-header_75);
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Adicione esta linha para garantir o contexto do contador */
+}
+.carrinho-icon {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .carrinho-qtd-header {
   position: absolute;
-  transform: translateY(-20px);
-  
+  top: -5px;
+  right: -17.5px;
   background-color: var(--cor-txt-header);
   color: var(--cor-bg-header);
-  padding: 1px 5px;
+  padding: 3px;
+  font-size: 0.9em;
   border-radius: 50%;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/* Animação do carrinho */
+@keyframes carrinhoDesceVolta {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(60px); }
+  70%  { transform: translateY(60px); }
+  100% { transform: translateY(0); }
+}
+.carrinho-animado {
+  animation: carrinhoDesceVolta 0.7s cubic-bezier(.68,-0.55,.27,1.55);
 }
 .carrinho-area {
   display: none;
   flex-direction: column;
 
   position: absolute;
-  right: calc(0% + 10px);
   top: 60px;
   padding: 20px;
 

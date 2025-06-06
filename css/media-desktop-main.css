@@ -19,12 +19,13 @@
 
   --cor-coracao-fav: hsla(0, 75%, 50%, 1);
   --cor-coracao-nofav: hsla(0, 5%, 50%, 1);
+  --cor-classificacao: #f0c040;
 
   --shadow-produto: rgba(0, 0, 0, 0.25);
   --light-produto: rgba(255, 255, 255, 0.25);
 }
 
-main{
+#pagina-inicial {
   min-height: 100vh;
   padding-top: 65px;
 
@@ -105,6 +106,13 @@ main{
   font-weight: bold;
   color: var(--cor-txt-preco);
   margin-top: 5px;
+}
+.produtoH-classificacao {
+  display: flex;
+  align-items: center;
+
+  color: var(--cor-classificacao);
+  font-weight: bolder;
 }
 .produtosH::-webkit-scrollbar {
   height: 7.5px;
@@ -234,6 +242,28 @@ main{
 .produtoV-div-coracao > svg:hover {
   animation: pulse-heart .5s;
   animation-iteration-count: infinite;
+}
+.produtoV-div-ver_mais {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  height: 40px;
+}
+#ver-mais-produtosV {
+  background-color: var(--cor2-bg-main_50);
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+#ver-mais-produtosV:hover {
+  background-color: var(--cor2-bg-main_75);
+  box-shadow: 0 0 5px var(--shadow-produto);
+  cursor: pointer;
+  transform: scale(1.1);
+
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 @keyframes pulse-heart {

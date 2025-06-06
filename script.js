@@ -5,8 +5,10 @@ let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
 /*variaveis*/
 const login_cadastro = document.querySelector("#login_cadastro");
 const login_cadastro_area = document.querySelector(".login_cadastro-area");
-var carrinhoIcon = document.querySelector("#carrinho");
+var carrinhoVerButtom = document.querySelector("#carrinho-ver-buttom");
+var carrinhoIcon = document.querySelector(".carrinho-icon");
 var carrinho_area = document.querySelector(".carrinho-area");
+
 var hideTimeout = null;
 
 let lastScroll = 0;
@@ -110,24 +112,24 @@ window.addEventListener("scroll", function () {
   lastScroll = currentScroll;
 });
 
-// produtos verticais
 document.addEventListener("DOMContentLoaded", function () {
-  if (!produtosVDiv) return;
-    // Atualize sempre que adicionar/remover itens do carrinho
-  carrinhoQtd.textContent = carrinho.length;
+  // Atualiza o contador do carrinho ao carregar a página
+  let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
   carrinhoQtds.forEach(el => el.textContent = carrinho.length);
 
-  fetch("produtos.json")
-    .then((response) => response.json())
-    .then((produtos) => {
-      produtosVDiv.innerHTML = produtos
+  // --- PRODUTOS VERTICAIS ---
+  if (produtosVDiv) {
+    let produtosExibidos = 20; // quantidade inicial
+    let todosProdutos = [];
+
+    function renderizarProdutosV() {
+      produtosVDiv.innerHTML = todosProdutos
+        .slice(0, produtosExibidos)
         .map(
           (produto) => `
         <div class="produtoV">
           <div class="produtoV-div_img">
-            <img src="${produto.imagem}" alt="${
-            produto.nome
-          }" class="produtoV-img">
+            <img src="${produto.imagem}" alt="${produto.nome}" class="produtoV-img">
           </div>
           <div class="produtoV-info">
             <div class="produtoV-nome-favorito">
@@ -145,139 +147,168 @@ document.addEventListener("DOMContentLoaded", function () {
       `
         )
         .join("");
-      document
-        .querySelectorAll(".produtoV-nome-favorito svg")
-        .forEach((svg, idx) => {
-          svg.addEventListener("click", function () {
-            const produtoId = produtos[idx].id;
-            favoritos[produtoId] = !favoritos[produtoId];
-            localStorage.setItem("favoritos", JSON.stringify(favoritos));
-            // Re-renderiza para atualizar o coração
-            location.reload();
-          });
+
+      // Eventos dos corações
+      produtosVDiv.querySelectorAll(".produtoV-div-coracao svg").forEach((svg, idx) => {
+        svg.addEventListener("click", function () {
+          const produtoId = todosProdutos[idx].id;
+          favoritos[produtoId] = !favoritos[produtoId];
+          localStorage.setItem("favoritos", JSON.stringify(favoritos));
+          renderizarProdutosV();
         });
-      // Após o bloco do coração
-      document
-        .querySelectorAll(".add-produto-carrinho")
-        .forEach((div, idx) => {
-          div.addEventListener("click", function () {
-            const produto = produtos[idx];
-            // Adiciona ao carrinho
-            let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
-            carrinho.push(produto);
-            localStorage.setItem("carrinho", JSON.stringify(carrinho));
-            // Atualiza o contador do carrinho
-            carrinhoQtd.textContent = carrinho.length;
-            carrinhoQtds.forEach(el => el.textContent = carrinho.length);
-          });
+      });
+
+      // Eventos do carrinho
+      produtosVDiv.querySelectorAll(".add-produto-carrinho").forEach((div, idx) => {
+        div.addEventListener("click", function () {
+          const produto = todosProdutos[idx];
+          let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+          carrinho.push(produto);
+          localStorage.setItem("carrinho", JSON.stringify(carrinho));
+          carrinhoQtds.forEach(el => el.textContent = carrinho.length);
+
+          // ANIMAÇÃO DO CARRINHO NA NAVBAR SE HEADER NÃO ESTIVER VISÍVEL
+          if (header.classList.contains("header-escondido")) {
+            const carrinhoIcon = document.getElementById("carrinho");
+            if (carrinhoIcon) {
+              carrinhoIcon.classList.add("carrinho-animado");
+              setTimeout(() => {
+                carrinhoIcon.classList.remove("carrinho-animado");
+              }, 700); // mesmo tempo da animação
+            }
+          }
         });
-    })
-    .catch(() => {
-      produtosVDiv.innerHTML = "<p>Não foi possível carregar os produtos.</p>";
-    });
-});
-
-// produtos horizontais
-function adicionarEventosProdutosH() {
-  if (!produtosHDiv) return;
-  const itens = produtosHDiv.querySelectorAll(".produtoH");
-  itens.forEach((item) => {
-    item.addEventListener("mouseenter", () => {
-      hoverProdutoH = true;
-      pause = true;
-    });
-    item.addEventListener("mouseleave", () => {
-      hoverProdutoH = false;
-      pause = false;
-    });
-  });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  if (!produtosHDiv) return;
-
-  fetch("produtos.json")
-    .then((response) => response.json())
-    .then((produtos) => {
-      produtosHDiv.innerHTML = produtos
-        .map(
-          (produto) => `
-        <div class="produtoH">
-          <img src="${produto.imagem}" alt="${
-            produto.nome
-          }" class="produtoH-img">
-          <div class="produtoH-info">
-            <h3 class="produtoH-nome">${produto.nome}</h3>
-            <p class="produtoH-preco">R$ ${produto.preco.toFixed(2)}</p>
-          </div>
-        </div>
-      `
-        )
-        .join("");
-      adicionarEventosProdutosH();
-    })
-    .catch(() => {
-      produtosHDiv.innerHTML = "<p>Não foi possível carregar os produtos.</p>";
-    });
-
-  // Auto-scroll horizontal
-  function autoScroll() {
-    if (pause) return;
-    const item = produtosHDiv.querySelector(".produtoH");
-    const itemWidth = item ? item.offsetWidth * 3 : 200; // ajuste o gap se necessário
-    let nextScroll = produtosHDiv.scrollLeft + direction * itemWidth;
-
-    // Limites
-    if (nextScroll <= 0) {
-      direction = 1;
-      nextScroll = 0;
-    } else if (
-      nextScroll + produtosHDiv.offsetWidth >=
-      produtosHDiv.scrollWidth - 5
-    ) {
-      direction = -1;
-      nextScroll = produtosHDiv.scrollWidth - produtosHDiv.offsetWidth;
+      });
     }
 
-    produtosHDiv.scrollTo({ left: nextScroll, behavior: "smooth" });
-    pause = true;
-    setTimeout(() => {
-      // Só libera o pause se não estiver com hover em produto
-      if (!hoverProdutoH) pause = false;
-    }, 1500);
+    fetch("produtos.json")
+      .then((response) => response.json())
+      .then((produtos) => {
+        todosProdutos = produtos;
+        renderizarProdutosV();
+
+        // Botão "Ver mais"
+        const btnVerMais = document.getElementById("ver-mais-produtosV");
+        if (btnVerMais) {
+          btnVerMais.style.display = produtosExibidos < todosProdutos.length ? "block" : "none";
+          btnVerMais.onclick = function () {
+            produtosExibidos += 20; // mostra mais
+            renderizarProdutosV();
+            if (produtosExibidos >= todosProdutos.length) {
+              btnVerMais.style.display = "none";
+            }
+          };
+        }
+      })
+      .catch(() => {
+        produtosVDiv.innerHTML = "<p>Não foi possível carregar os produtos.</p>";
+      });
   }
 
-  setInterval(autoScroll, 1200);
+  // --- PRODUTOS HORIZONTAIS ---
+  if (produtosHDiv) {
+    fetch("produtos.json")
+      .then((response) => response.json())
+      .then((produtos) => {
+        // Ordena por classificação decrescente e pega os 30 melhores
+        const melhoresProdutos = produtos
+          .slice()
+          .sort((a, b) => b.classificacao - a.classificacao)
+          .slice(0, 30);
 
-  // Pausa ao interagir com a barra de rolagem
-  produtosHDiv.addEventListener("mousedown", () => {
-    pause = true;
-    userScrolling = true;
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-  });
+        produtosHDiv.innerHTML = melhoresProdutos
+          .map(
+            (produto) => `
+          <div class="produtoH">
+            <img src="${produto.imagem}" alt="${produto.nome}" class="produtoH-img">
+            <div class="produtoH-info">
+              <h3 class="produtoH-nome">${produto.nome}</h3>
+              <p class="produtoH-preco">R$ ${produto.preco.toFixed(2)}</p>
+              <p class="produtoH-classificacao">⭐ ${produto.classificacao}</p>
+            </div>
+          </div>
+        `
+          )
+          .join("");
 
-  produtosHDiv.addEventListener("scroll", () => {
-    pause = true;
-    userScrolling = true;
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      // Só libera o pause se não estiver com hover em produto
-      if (!hoverProdutoH) {
-        pause = false;
-        userScrolling = false;
+        adicionarEventosProdutosH();
+      })
+      .catch(() => {
+        produtosHDiv.innerHTML = "<p>Não foi possível carregar os produtos.</p>";
+      });
+
+    // Auto-scroll horizontal
+    function autoScroll() {
+      if (pause) return;
+      const item = produtosHDiv.querySelector(".produtoH");
+      const itemWidth = item ? item.offsetWidth * 3 : 200;
+      let nextScroll = produtosHDiv.scrollLeft + direction * itemWidth;
+
+      // Limites
+      if (nextScroll <= 0) {
+        direction = 1;
+        nextScroll = 0;
+      } else if (
+        nextScroll + produtosHDiv.offsetWidth >=
+        produtosHDiv.scrollWidth - 5
+      ) {
+        direction = -1;
+        nextScroll = produtosHDiv.scrollWidth - produtosHDiv.offsetWidth;
       }
-    }, 2500);
-  });
 
-  produtosHDiv.addEventListener("mouseup", () => {
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      if (!hoverProdutoH) {
+      produtosHDiv.scrollTo({ left: nextScroll, behavior: "smooth" });
+      pause = true;
+      setTimeout(() => {
+        if (!hoverProdutoH) pause = false;
+      }, 1500);
+    }
+
+    setInterval(autoScroll, 1200);
+
+    // Pausa ao interagir com a barra de rolagem
+    produtosHDiv.addEventListener("mousedown", () => {
+      pause = true;
+      userScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    });
+
+    produtosHDiv.addEventListener("scroll", () => {
+      pause = true;
+      userScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (!hoverProdutoH) {
+          pause = false;
+          userScrolling = false;
+        }
+      }, 2500);
+    });
+
+    produtosHDiv.addEventListener("mouseup", () => {
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (!hoverProdutoH) {
+          pause = false;
+          userScrolling = false;
+        }
+      }, 2500);
+    });
+  }
+
+  // Eventos de hover para pausar o auto-scroll dos produtos horizontais
+  function adicionarEventosProdutosH() {
+    if (!produtosHDiv) return;
+    const itens = produtosHDiv.querySelectorAll(".produtoH");
+    itens.forEach((item) => {
+      item.addEventListener("mouseenter", () => {
+        hoverProdutoH = true;
+        pause = true;
+      });
+      item.addEventListener("mouseleave", () => {
+        hoverProdutoH = false;
         pause = false;
-        userScrolling = false;
-      }
-    }, 2500);
-  });
+      });
+    });
+  }
 });
-
 
